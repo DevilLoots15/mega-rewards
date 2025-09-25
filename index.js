@@ -17,8 +17,8 @@ let otpStore = {};    // { email: otp }
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'YOUR_EMAIL@gmail.com', // replace with your Gmail
-    pass: 'YOUR_APP_PASSWORD'     // create App Password in Gmail settings
+    user: 'bhargav838281@gmail.com', // replace with your Gmail
+    pass: '@Gumutari1'     // create App Password in Gmail settings
   }
 });
 
