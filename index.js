@@ -9,20 +9,20 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// In-memory storage for users and OTPs
+// In-memory storage
 let users = {};       // { email: { password } }
 let otpStore = {};    // { email: otp }
 
-// Configure nodemailer (use your Gmail or any SMTP)
+// Nodemailer transporter using Gmail App Password
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'bhargav838281@gmail.com', // replace with your Gmail
-    pass: '@Gumutari1'     // create App Password in Gmail settings
+    user: 'bhargav838281@gmail.com',  // your Gmail
+    pass: '@Gumutari1'         // Gmail App Password, NOT normal password
   }
 });
 
-// Helper to generate 6-digit OTP
+// Generate 6-digit OTP
 function generateOtp() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
@@ -34,10 +34,10 @@ app.post('/send-otp', (req, res) => {
 
   const otp = generateOtp();
   otpStore[email] = otp;
-  users[email] = { password }; // store password temporarily
+  users[email] = { password };
 
   const mailOptions = {
-    from: 'YOUR_EMAIL@gmail.com',
+    from: 'bhargav838281@gmail.com',  // must match authenticated email
     to: email,
     subject: 'Your OTP Code',
     text: `Your OTP is: ${otp}`
@@ -45,9 +45,10 @@ app.post('/send-otp', (req, res) => {
 
   transporter.sendMail(mailOptions, (err, info) => {
     if(err) {
-      console.error(err);
+      console.error("Error sending OTP:", err);
       return res.json({ success: false, message: "Failed to send OTP" });
     } else {
+      console.log("OTP sent:", otp, "to", email);
       return res.json({ success: true });
     }
   });
@@ -59,7 +60,7 @@ app.post('/verify-otp', (req, res) => {
   if(!email || !otp) return res.json({ success: false, message: "Email and OTP required" });
 
   if(otpStore[email] && otpStore[email] === otp){
-    delete otpStore[email]; // OTP used
+    delete otpStore[email]; 
     return res.json({ success: true });
   } else {
     return res.json({ success: false, message: "Invalid OTP" });
