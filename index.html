@@ -8,69 +8,63 @@
   <style>
     body { font-family: 'Poppins', sans-serif; }
     .fade-in { animation: fadeIn 0.8s ease forwards; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
     .slide-up { animation: slideUp 0.6s ease forwards; }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(100%); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(100%);} to {opacity:1; transform:translateY(0);} }
   </style>
 </head>
 <body class="bg-gradient-to-br from-blue-900 to-blue-600 min-h-screen flex items-center justify-center text-white">
 
-  <!-- Landing Screen -->
-  <div id="landing" class="w-full h-screen flex flex-col justify-center items-center text-center fade-in">
+  <!-- Landing -->
+  <div id="landing" class="w-full h-screen flex flex-col justify-center items-center text-center fade-in px-4">
     <h1 class="text-4xl font-bold mb-12">Welcome</h1>
-    <div class="flex gap-6">
-      <button onclick="openLogin()" class="px-10 py-4 bg-blue-500 hover:bg-blue-600 rounded-xl text-lg font-semibold shadow-lg transition transform hover:scale-105">Login</button>
-      <button onclick="openRegister()" class="px-10 py-4 bg-green-500 hover:bg-green-600 rounded-xl text-lg font-semibold shadow-lg transition transform hover:scale-105">Register</button>
+    <div class="flex flex-col sm:flex-row gap-6">
+      <button onclick="openLogin()" class="px-12 py-4 bg-blue-500 hover:bg-blue-600 rounded-xl text-lg font-semibold shadow-lg transition transform hover:scale-105">Login</button>
+      <button onclick="openRegister()" class="px-12 py-4 bg-green-500 hover:bg-green-600 rounded-xl text-lg font-semibold shadow-lg transition transform hover:scale-105">Register</button>
     </div>
     <p class="mt-16 text-sm text-gray-200 opacity-70">By continuing you agree to our <span class="underline cursor-pointer">Terms & Conditions</span></p>
   </div>
 
   <!-- Auth Box -->
-  <div id="authBox" class="hidden absolute inset-0 flex items-center justify-center">
-    <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-xl w-11/12 max-w-md text-white slide-up">
-      <h2 id="authTitle" class="text-2xl font-bold mb-6 text-center">Login</h2>
+  <div id="authBox" class="hidden absolute inset-0 flex items-center justify-center p-4">
+    <div class="bg-white/10 backdrop-blur-lg w-full max-w-sm rounded-2xl p-6 text-white flex flex-col gap-4 slide-up">
+      <h2 id="authTitle" class="text-2xl font-bold text-center mb-4">Login</h2>
 
       <!-- Login Form -->
       <div id="loginForm">
-        <input type="email" id="loginEmail" placeholder="Email" class="w-full mb-3 p-3 rounded-lg bg-white/20 border border-white/30 focus:outline-none">
-        <input type="password" id="loginPassword" placeholder="Password" class="w-full mb-3 p-3 rounded-lg bg-white/20 border border-white/30 focus:outline-none">
-        <button onclick="login()" class="w-full py-3 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold">Login</button>
+        <input type="email" id="loginEmail" placeholder="Email" class="w-full p-3 rounded-lg bg-white/20 focus:outline-none">
+        <input type="password" id="loginPassword" placeholder="Password" class="w-full p-3 rounded-lg bg-white/20 focus:outline-none">
+        <button onclick="login()" class="w-full py-3 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold mt-2">Login</button>
         <p class="mt-4 text-sm text-center">Don’t have an account? <span onclick="openRegister()" class="cursor-pointer text-blue-300 hover:underline">Register</span></p>
       </div>
 
       <!-- Register Form -->
-      <div id="registerForm" class="hidden">
-        <input type="email" id="regEmail" placeholder="Email" class="w-full mb-3 p-3 rounded-lg bg-white/20 border border-white/30 focus:outline-none">
-        <input type="password" id="regPassword" placeholder="Password" class="w-full mb-3 p-3 rounded-lg bg-white/20 border border-white/30 focus:outline-none">
-        <button onclick="sendOtp()" class="w-full py-3 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold">Send OTP</button>
+      <div id="registerForm" class="hidden flex flex-col gap-2">
+        <input type="email" id="regEmail" placeholder="Email" class="w-full p-3 rounded-lg bg-white/20 focus:outline-none">
+        <input type="password" id="regPassword" placeholder="Password" class="w-full p-3 rounded-lg bg-white/20 focus:outline-none">
+        <button onclick="sendOtp()" class="w-full py-3 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold mt-2">Send OTP</button>
 
-        <div id="otpBox" class="hidden mt-3">
-          <input type="text" id="otpInput" placeholder="Enter OTP" class="w-full mb-3 p-3 rounded-lg bg-white/20 border border-white/30 focus:outline-none">
+        <div id="otpBox" class="hidden flex flex-col gap-2 mt-2">
+          <input type="text" id="otpInput" placeholder="Enter OTP" class="w-full p-3 rounded-lg bg-white/20 focus:outline-none">
           <button onclick="verifyOtp()" class="w-full py-3 bg-green-500 hover:bg-green-600 rounded-lg font-semibold">Verify OTP</button>
         </div>
 
-        <p class="mt-4 text-sm text-center">Already have an account? <span onclick="openLogin()" class="cursor-pointer text-blue-300 hover:underline">Login</span></p>
+        <p class="mt-2 text-sm text-center">Already have an account? <span onclick="openLogin()" class="cursor-pointer text-blue-300 hover:underline">Login</span></p>
       </div>
     </div>
   </div>
 
   <!-- Dashboard -->
-  <div id="dashboard" class="hidden absolute inset-0 flex items-center justify-center text-white">
-    <div class="bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-xl w-11/12 max-w-lg text-center slide-up">
-      <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+  <div id="dashboard" class="hidden absolute inset-0 flex items-center justify-center text-white p-4">
+    <div class="bg-white/10 backdrop-blur-lg w-full max-w-md rounded-2xl p-6 text-center flex flex-col gap-4 slide-up">
+      <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
       <div class="grid grid-cols-2 gap-4">
         <button class="p-4 bg-blue-500 rounded-xl hover:bg-blue-600">🏠 Home</button>
         <button class="p-4 bg-blue-500 rounded-xl hover:bg-blue-600">💸 Earn</button>
         <button class="p-4 bg-blue-500 rounded-xl hover:bg-blue-600">🎁 Redeem</button>
         <button class="p-4 bg-blue-500 rounded-xl hover:bg-blue-600">👤 Profile</button>
       </div>
-      <button onclick="logout()" class="w-full mt-6 py-2 bg-red-500 hover:bg-red-600 rounded-lg">Logout</button>
+      <button onclick="logout()" class="w-full mt-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg">Logout</button>
     </div>
   </div>
 
@@ -93,20 +87,48 @@
       document.getElementById("authTitle").innerText = "Register";
     }
 
+    // Send OTP to backend
     function sendOtp() {
-      generatedOtp = Math.floor(1000 + Math.random() * 9000); // mock OTP
-      alert("Mock OTP sent: " + generatedOtp); // Replace with real email API later
-      document.getElementById("otpBox").classList.remove("hidden");
+      const email = document.getElementById("regEmail").value;
+      if (!email) return alert("Enter email");
+
+      fetch("http://localhost:3000/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success){
+          alert("OTP sent to your email!");
+          document.getElementById("otpBox").classList.remove("hidden");
+        } else {
+          alert("Failed to send OTP");
+        }
+      })
+      .catch(err => console.error(err));
     }
 
+    // Verify OTP from backend
     function verifyOtp() {
-      let enteredOtp = document.getElementById("otpInput").value;
-      if (enteredOtp == generatedOtp) {
-        alert("OTP Verified! Registration Successful");
-        login();
-      } else {
-        alert("Invalid OTP");
-      }
+      const email = document.getElementById("regEmail").value;
+      const otp = document.getElementById("otpInput").value;
+
+      fetch("http://localhost:3000/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success){
+          alert("OTP Verified! Registration successful.");
+          login();
+        } else {
+          alert("Invalid OTP");
+        }
+      })
+      .catch(err => console.error(err));
     }
 
     function login() {
